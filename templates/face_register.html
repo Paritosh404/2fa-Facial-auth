@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<title>Registreation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+  @media screen and (min-width: 800px) {
+
+    body {
+      text-align: center;
+      padding: 200px;
+    }
+  }
+  body {
+    text-align:center;
+  }
+
+    
+      
+      .button {
+        display: inline-block;
+        background: #4285f4;
+        color: #fff;
+        text-transform: uppercase;
+        padding: 20px 30px;
+        border-radius: 5px;
+        box-shadow: 0px 17px 10px -10px rgba(0, 0, 0, 0.4);
+        cursor: pointer;
+        -webkit-transition: all ease-in-out 300ms;
+        transition: all ease-in-out 300ms;
+      }
+      .button:hover {
+        box-shadow: 0px 37px 20px -20px rgba(0, 0, 0, 0.2);
+        -webkit-transform: translate(0px, -10px) scale(1.2);
+                transform: translate(0px, -10px) scale(1.2);
+      }
+      
+
+    #container {
+        margin: 0px auto;
+        width: 500px;
+        height: 375px;
+        border: 10px #333 solid;
+    }
+    #recording {
+        width: 500px;
+        height: 375px;
+        background-color: #666;
+    }
+    #preview {
+        width: 500px;
+        height: 375px;
+        background-color: #666;
+    }
+    </style>
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(23, 23, 23);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+  background-color: white;
+}
+
+.custom-file-upload {
+    position:relative;
+    
+    font-family: calibri;
+    width: 150px;
+    padding: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border: 1px dashed #BBB;
+    text-align: center;
+    background-color: #DDD;
+    cursor: pointer;
+}
+/* Full-width input fields */
+input[type=text],input[type=email], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus,input[type=email]:focus ,input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+    {% for message in messages %}
+    <p style="color: #DDD;">{{message}}</p> 
+    {% endfor %}
+    
+    <cool-ad>
+        <template class="ad__mobile">
+          <br>
+          <br>
+            <p style="color: #DDD;">1) Record Your video For 8-10 seconds</p>
+            <br>
+            <p style="color: #DDD;">1) Once Record Press The Submit Buttion</p> 
+            <br>
+            <form action="face" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" value={{username}} name="username" />
+                <input type="hidden" value={{email}} name="email" />
+                <label class="custom-file-upload">
+                <input type="file" accept="video/*" name="video" capture>
+              </label>
+              <button type="submit" class="registerbtn">Submit</button>
+            </form>
+        </template>
+        <template class="ad__desktop">
+            <p style="color: #DDD;">1) For Desktop Users Record your Video By pressing Start Button and look into the camera.</p>
+            <p style="color: #DDD;">2) Once Record Press The download Button to donload the video then drag and drop into the Video Upload Option</p>
+            <p style="color: #DDD;">3) Finally Press The submit Button</p> 
+
+            <form action="face" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <br>
+                <br><br>
+                <br>
+                <input type="hidden" value={{username}} name="username" />
+                <input type="hidden" value={{email}} name="email" />
+                <label class="custom-file-upload">
+                    <input type="file" name="video" capture>
+                    Video Upload
+                </label>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div id="startButton" class="button">
+                    Start
+                    </div>
+                    <h2 style="color: #DDD;">Preview</h2>
+                <div  id="container" class="left">
+                    
+                    <video id="preview" autoplay= muted></video>
+                </div>
+            <br>
+            <br>
+                <div id="stopButton" class="button">
+                    Stop
+                    </div>
+                    <h2 style="color: #DDD;">Recording</h2>
+              <div id="container" class="right">
+                  
+                  <video type="file" id="recording" controls></video>
+              </div>
+              <br>
+                  <br>
+              <a id="downloadButton" class="button">
+                Download
+                </a>
+                <br>
+                <br>
+
+                <button type="submit" class="registerbtn">Submit</button>
+              </div>
+              
+            
+            </form>
+        </template>
+      </cool-ad>
+
+  
+
+
+
+
+</body>
+</html>
+<script>
+    class AdComponent extends HTMLElement {
+        connectedCallback() {
+          const isMobile = matchMedia('(max-width: 500px)').matches;    
+          const ad = document.currentScript.closest('.ad');
+          const content = this
+            .querySelector(isMobile ? '.ad__mobile' : '.ad__desktop')
+            .content;
+          
+          this.appendChild(document.importNode(content, true));
+        }
+      }
+      
+      customElements.define('cool-ad', AdComponent);
+</script>
+<script>
+  
+  let preview = document.getElementById("preview");
+  let recording = document.getElementById("recording");
+  let startButton = document.getElementById("startButton");
+  let stopButton = document.getElementById("stopButton");
+  let downloadButton = document.getElementById("downloadButton");
+  let logElement = document.getElementById("log");
+
+  let recordingTimeMS = 10000;
+
+  let rec = Blob;
+
+  setTimeout(startRecording, 10000);
+
+  function log(msg) {
+      //logElement.innerHTML += msg + "\n";
+  }
+
+  function wait(delayInMS) {
+      return new Promise(resolve => setTimeout(resolve, delayInMS));
+  }
+
+  function startRecording(stream, lengthInMS) {
+      let recorder = new MediaRecorder(stream);
+      let data = [];
+
+      recorder.ondataavailable = event => data.push(event.data);
+      recorder.start();
+      log(recorder.state + " for " + (lengthInMS/1000) + " seconds...");
+
+      let stopped = new Promise((resolve, reject) => {
+      recorder.onstop = resolve;
+      recorder.onerror = event => reject(event.name);
+      });
+
+      let recorded = wait(lengthInMS).then(
+      () => recorder.state == "recording" && recorder.stop()
+      );
+
+      return Promise.all([
+          stopped,
+          recorded
+      ])
+      .then(() => data);
+  }
+
+  function stop(stream) {
+      stream.getTracks().forEach(track => track.stop());
+  }
+
+  startButton.addEventListener("click", function() {
+      navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: false
+      }).then(stream => {
+              preview.srcObject = stream;
+              downloadButton.href = stream;
+              preview.captureStream = preview.captureStream || preview.mozCaptureStream;
+              return new Promise(resolve => preview.onplaying = resolve);
+            }).then(() => startRecording(preview.captureStream(), recordingTimeMS))
+            .then (recordedChunks => {
+              let recordedBlob = new Blob(recordedChunks, { type: "video/mp4" });
+              recording.src = URL.createObjectURL(recordedBlob);  
+              downloadButton.href = recording.src;
+              downloadButton.download = "{{username}}.mp4";
+
+              log("Successfully recorded " + recordedBlob.size + " bytes of " +
+                  recordedBlob.type + " media.");
+            })
+            .catch(log);
+      }, false);
+
+
+      stopButton.addEventListener("click", function() {
+      stop(preview.srcObject);
+      });
+
+  </script>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>

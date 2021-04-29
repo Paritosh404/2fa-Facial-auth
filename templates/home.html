@@ -1,0 +1,89 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html>
+  <style>
+    .button {
+      display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+  
+    </style>
+<style type="text/css">
+#submit {
+ background-color: #bbbb;
+ padding: .5em;
+ -moz-border-radius: 5px;
+ -webkit-border-radius: 5px;
+ border-radius: 6px;
+ color: #ffff;
+ font-family: 'Oswald';
+ font-size: 20px;
+ text-decoration: none;
+ border: none;
+}
+
+#submit:hover {
+ border: none;
+ background: green;
+ box-shadow: 0px 0px 1px #777;
+}
+</style>
+
+<head>
+<meta charset="ISO-8859-1">
+<title> HOME </title>
+
+<style>
+h1 { 
+  padding: 60px;
+  text-align: center;
+  background: #1abc9c;
+  color: white;
+  font-size: 30px;
+}
+</style>
+
+</head>
+
+
+
+<body background="{% static 'C:\Users\PC.LAPTOP-8SULEQTI\Desktop\project\api\static\easy.png' %}" style="background-color:white; font-family:verdana; text-align:center;">
+<h1 style="color:white;">WELCOME TO HOME PAGE</h1> <br>
+<p style="color:red;">
+
+
+  <form action="btn2" method="POST">
+
+    {% csrf_token %}
+    <button type="submit" class="button" name="btn2" >CHANGE DATA</button><br><br>	
+  </form>
+
+  
+</p>
+
+
+
+
+
+</body>
+</html> 
