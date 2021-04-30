@@ -7,6 +7,7 @@ MOLD THE CODE IN YOUY WAY.
 ## Installation
 
 Make Sure to install CMAKE for DLIB library to work.
+
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install all the requirements mentioned in requirment.txt.
 
 ```bash
